@@ -153,7 +153,7 @@ public class EnemyAi : MonoBehaviour
 	{
 		
 		Distance = Vector3.Distance(gameObject.transform.position, Waypoints[curWaypoint].position);
-		if (Distance > 2.00f)
+		if (Distance > 6.00f)
 		{
 			Destination = Waypoints[curWaypoint].position;
 			navAgent.SetDestination(Destination);
