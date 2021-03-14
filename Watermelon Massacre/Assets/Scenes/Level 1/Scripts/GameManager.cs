@@ -11,13 +11,14 @@ public class GameManager : MonoBehaviour
     public holder_Information save3;
 
     public holder_Information currentSave;
-
+    public static int difficulty = 5;
 
 
 
     private void Awake()
     {
         loadSave();
+        difficulty = currentSave.difficulty;
     }
     // Start is called before the first frame update
     void Start()
