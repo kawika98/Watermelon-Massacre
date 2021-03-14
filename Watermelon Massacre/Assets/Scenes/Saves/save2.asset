@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de3329f6d755fb47b86c875cdfcf97c, type: 3}
+  m_Name: save2
+  m_EditorClassIdentifier: 
+  save_name: default
+  save_number: -1
+  level: -1
+  difficulty: 5
+  spawnChance_relic: 5
+  forward: 119
+  back: 115
+  left: 97
+  right: 100
+  fireButton: 323
+  inventoryUse_1: 257
+  inventoryUse_2: 258
+  inventoryUse_3: 259
+  inventoryUse_4: 260
+  reload: 114
+  quickSwichToWeaponOnTheLeft: 102
+  barrellRoll: 32
+  pause_and_menu: 27
+  rotateLeft: 113
+  rotateRight: 101
+  weapons: []
+  relics: []
+  parts: 0
+  currentWeapon_out: {fileID: 0}
+  currentShip: {fileID: 0}
+  goldenWatermelons_collected: 0
