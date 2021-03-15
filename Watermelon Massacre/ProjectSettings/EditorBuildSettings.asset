@@ -8,4 +8,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Intoduction Scene/IntoScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Level 1/Level1Scene.unity
+    guid: deb495fa0bd1d6649b104d90699b98fc
+  - enabled: 1
+    path: Assets/Scenes/Level 2/Level 2.unity
+    guid: 4e77b88d404e973408fb5a61ae6a3ae3
+  - enabled: 1
+    path: Assets/Scenes/Level3/Level 3.unity
+    guid: 1d7218cbf8f5ce44c9a14509a6dfd8ea
+  - enabled: 1
+    path: Assets/Scenes/Level4/Level 4.unity
+    guid: d6dd27b655a353842b9fc13403bbd0a7
+  - enabled: 1
+    path: Assets/Scenes/Level5/Level 5.unity
+    guid: c49e75c31a891e547b512fd98c534810
   m_configObjects: {}

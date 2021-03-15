@@ -182,6 +182,9 @@ public class menuManager : MonoBehaviour
             case (int)Screens.Main:
                 GameObjectDisable(Main);
                 break;
+            case (int)Screens.PlayScreen:
+                GameObjectDisable(PlayScreen);
+                break;
             case (int)Screens.Custom:
                 GameObjectDisable(Custom);
                 break;
@@ -221,6 +224,9 @@ public class menuManager : MonoBehaviour
             case (int)Screens.Main:
                 GameObjectEnable(Main);
                 break;
+            case (int)Screens.PlayScreen:
+                GameObjectEnable(PlayScreen);
+                break;
             case (int)Screens.Custom:
                 GameObjectEnable(Custom);
                 break;
@@ -256,6 +262,10 @@ public class menuManager : MonoBehaviour
     public void open_Main()
     {
         Open((int)Screens.Main);
+    }
+    public void open_PlayScreen()
+    {
+        Open((int)Screens.PlayScreen);
     }
     public void open_Custom()
     {

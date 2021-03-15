@@ -31,7 +31,7 @@ public class RomanCurve : MonoBehaviour
     {
         int termPls = 0;
         while (termPls == 0) {
-            t = t + Time.deltaTime;
+            t = t + (Time.deltaTime/2);
             //Debug.Log(Time.deltaTime);
             //Debug.Log(t);
             if (t > 1)

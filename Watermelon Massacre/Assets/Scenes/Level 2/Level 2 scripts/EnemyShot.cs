@@ -24,10 +24,12 @@ public class EnemyShot : bullet_base
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player") { 
+        if (other.gameObject.tag == "Player")
+        { 
             Destroy(this.gameObject);
         PlayerManager.health = PlayerManager.health - damage;
-    }
+        }
+     
         
     }
 

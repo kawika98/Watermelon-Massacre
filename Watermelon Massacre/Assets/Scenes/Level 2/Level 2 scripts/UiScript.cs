@@ -15,6 +15,8 @@ public class UiScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerManager.health < 0)
+            PlayerManager.health = 0;
         healthText.text = "Health: " + PlayerManager.health;
     }
     

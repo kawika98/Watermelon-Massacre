@@ -16,7 +16,7 @@ public class NeilBezier : MonoBehaviour
     public Transform controlPoint;
     public Transform endPoint;
 
-    public float timer;
+    public float t = 0;
 
     void Start()
     {
@@ -25,38 +25,25 @@ public class NeilBezier : MonoBehaviour
         startCamera.SetActive(true);
         mainCamera.SetActive(false);
 
-        StartCoroutine(bezierCurve(bezierObject, startPoint.position, controlPoint.position, endPoint.position, timer));
+        StartCoroutine(bezierCurve(bezierObject, startPoint, controlPoint, endPoint, t));
     }
 
-    public IEnumerator bezierCurve(Transform bezierObject, Vector3 startPos, Vector3 controlPos, Vector3 endPos, float timer)
+    public IEnumerator bezierCurve(Transform bezierObject, Transform startPos, Transform controlPos, Transform endPos, float timer)
     {
-        float currentTime = 0.0f;
-        int i = 0;
-
-        while(currentTime < 1)
+        int check = 0;
+        while (check == 0)
         {
-            i++;
-            currentTime = Time.deltaTime / timer;
-
-            if(currentTime >= 1)
+            t = t + (Time.deltaTime / 2);
+            if (t > 1)
             {
-                currentTime = 1;
+                t = 1;
+                check = 1;
             }
-
-            float xPos = (Mathf.Pow((1 - currentTime), 2) * startPos.x) + (2 * (1 - currentTime) * currentTime * controlPos.x) + (Mathf.Pow(currentTime, 2) * endPos.x);
-            float yPos = (Mathf.Pow((1 - currentTime), 2) * startPos.y) + (2 * (1 - currentTime) * currentTime * controlPos.y) + (Mathf.Pow(currentTime, 2) * endPos.y);
-            float zPos = (Mathf.Pow((1 - currentTime), 2) * startPos.z) + (2 * (1 - currentTime) * currentTime * controlPos.z) + (Mathf.Pow(currentTime, 2) * endPos.z);
-
-
-            bezierObject.position = new Vector3(xPos, yPos, zPos);
-
-            if(i >= 250)
-            {
-                currentTime = 100000;
-                startCamera.SetActive(false);
-                mainCamera.SetActive(true);
-            }
+            bezierObject.position = (1 - t) * (1 - t) * startPos.position + 2 * (1 - t) * t * controlPos.position + t * t * endPos.position;
             yield return new WaitForEndOfFrame();
         }
+        startCamera.SetActive(false);
+        mainCamera.SetActive(true);
+
     }
 }

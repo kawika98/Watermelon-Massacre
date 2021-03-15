@@ -10,7 +10,7 @@ public class Enemy_attack_single_gun : enemyBase
         currentTime = Time.deltaTime;
         coolDownTime = coolDownTime / levelOfAttack;
         health = 40 + (20 * levelOfAttack);
-        Debug.Log(coolDownTime);
+
 
     }
     private void Update()
@@ -22,23 +22,24 @@ public class Enemy_attack_single_gun : enemyBase
     public override void Attack()
     {
         currentTime += Time.deltaTime;
-        Debug.Log(currentTime);
+
         if (coolDownTime < currentTime)
         {
             this.gameObject.GetComponent<Rigidbody>().Sleep();
-            this.transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, this.transform.position.z));
+            //this.transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, this.transform.position.z));
 
 
-            GameObject bullet = Instantiate(my_bullet, transform.position, transform.rotation, transform) as GameObject;
+            GameObject bullet = Instantiate(my_bullet, transform.position, transform.rotation) as GameObject;
             Rigidbody rb = bullet.AddComponent<Rigidbody>();
+            bullet.transform.LookAt(new Vector3(player.position.x, player.position.y, player.transform.position.z));
             rb.useGravity = false;
-            rb.AddForce(transform.forward * 100 * 100);
-            Destroy(bullet, 1f);
+            rb.AddForce(bullet.transform.forward * 90 * 100);
+            Destroy(bullet, 2.5f);
             bullet.GetComponent<bullet_base>().effect_bullet();
 
 
             doTheActionTime += coolDownTime;
-           
+            currentTime = 0;
         }
         //throw new System.NotImplementedException();
     }
