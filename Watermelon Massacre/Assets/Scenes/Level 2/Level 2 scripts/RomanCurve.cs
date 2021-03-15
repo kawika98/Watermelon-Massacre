@@ -8,6 +8,8 @@ public class RomanCurve : MonoBehaviour
     public Transform start;
     public Transform mid;
     public Transform end;
+    public GameObject introCam;
+    public GameObject mainCam;
     public float t = 0;
 
 
@@ -39,9 +41,10 @@ public class RomanCurve : MonoBehaviour
             }
         //B(t) = (1-t)2P0 + 2(1-t)tP1 + t2P2 
         thingToMove.position = (1 - t) * (1 - t) * start.position + 2 * (1 - t) * t * mid.position + t * t * end.position;
-            Debug.Log(thingToMove.position.x);
+            //Debug.Log(thingToMove.position.x);
             yield return new WaitForEndOfFrame();
         }
-       
+        introCam.SetActive(false);
+        mainCam.SetActive(true);
     }
 }

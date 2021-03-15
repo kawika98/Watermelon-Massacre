@@ -18,6 +18,30 @@ public class kawikaBezierCurve : MonoBehaviour
     [Header("Use four points")]
     public bool four_points;
 
+    private bool done = false;
+    public GameObject main_one;
+    public GameObject not_main_one;
+    public GameObject cav_my;
+    public GameObject b_music;
+
+    public bool useCheck = false;
+
+    private void Update()
+    {
+        if(useCheck == true)
+        {
+
+            if (done == true)
+            {
+                main_one.gameObject.SetActive(false);
+                not_main_one.gameObject.SetActive(true);
+                cav_my.gameObject.SetActive(true);
+                b_music.gameObject.SetActive(true);
+            }
+        }
+   
+    }
+
     public float timeToReachEnd = 1;//1 one second, 2 is two seconds, ect   Also 0.5 is half a second,ect
     void Start()
     {
@@ -27,27 +51,17 @@ public class kawikaBezierCurve : MonoBehaviour
         }
         else if (three_points == true)
         {
-            //StartCoroutine(bezierCurve(thingToMove, firstPoint.position, secondPoint.position, thirdPoint.position, timeToReachEnd));
+            StartCoroutine(bezierCurve(thingToMove, firstPoint, secondPoint, thirdPoint, timeToReachEnd));
         }
         else if (four_points == true)
         {
-           // StartCoroutine(bezierCurve(thingToMove, firstPoint.position, secondPoint.position, thirdPoint.position, fourthPoint.position, timeToReachEnd));
+           StartCoroutine(bezierCurve(thingToMove, firstPoint, secondPoint, thirdPoint, fourthPoint, timeToReachEnd));
         }
         else
         {
             Debug.LogError("You did not select a choice " + this.gameObject.name);
         }
     }
-
-    private void Update()
-    {
-      
-
-    }
-
-
-
-
     public IEnumerator bezierCurve(Transform objectToMove, Transform firstPoint, Transform secondPoint, float timeToReachEnd)
     {
         float currentTime = 0.0f;
@@ -67,24 +81,13 @@ public class kawikaBezierCurve : MonoBehaviour
             float yPos = ((1 - currentTime) * firstPoint.position.y) + (currentTime * secondPoint.position.y);
             float zPos = ((1 - currentTime) * firstPoint.position.z) + (currentTime * secondPoint.position.z);
 
-            float xPos2 = ((1 - (currentTime)) * firstPoint.rotation.eulerAngles.x) + ((currentTime) * secondPoint.rotation.eulerAngles.x);
-            float yPos2 = ((1 - (currentTime)) * firstPoint.rotation.eulerAngles.y) + ((currentTime) * secondPoint.rotation.eulerAngles.y);
-            float zPos2 = ((1 - (currentTime)) * firstPoint.rotation.eulerAngles.z) + ((currentTime) * secondPoint.rotation.eulerAngles.z);
-            Debug.Log(new Vector3(xPos2,yPos2,zPos2));
+            float xRot = ((1 - (currentTime)) * firstPoint.rotation.eulerAngles.x) + ((currentTime) * secondPoint.rotation.eulerAngles.x);
+            float yRot = ((1 - (currentTime)) * firstPoint.rotation.eulerAngles.y) + ((currentTime) * secondPoint.rotation.eulerAngles.y);
+            float zRot = ((1 - (currentTime)) * firstPoint.rotation.eulerAngles.z) + ((currentTime) * secondPoint.rotation.eulerAngles.z);
 
 
-         //   Debug.Log(new Vector3(xPos, yPos, zPos) + " b");
-            Debug.Log(new Vector3(xPos2, yPos2, zPos2) + " dd");
             objectToMove.transform.position = new Vector3(xPos, yPos, zPos);
-            objectToMove.eulerAngles = new Vector3(xPos2, yPos2, zPos2);
-           //  objectToMove.transform.rotation = Quaternion.LookRotation(new Vector3(xPos2, yPos2, zPos2));
-
-
-
-            // Debug.Log(new Quaternion(xRot, yRot, zRot, -1));
-            // objectToMove.transform.rotation = new Quaternion(xRot, yRot, zRot, 20);
-            //  objectToMove.LookAt(new Vector3(xPos2,yPos2,zPos2));
-            // objectToMove.transform.rotation = Quaternion.LookRotation(new Vector3(xPos2, yPos2, zPos2));
+            objectToMove.eulerAngles = new Vector3(xRot, yRot, zRot);         
 
             if (i >= 250)
             {
@@ -92,7 +95,84 @@ public class kawikaBezierCurve : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
+        done = true;
      
+    }
+
+    public IEnumerator bezierCurve(Transform objectToMove, Transform firstPoint, Transform secondPoint,Transform thirdPoint, float timeToReachEnd)
+    {
+        float currentTime = 0.0f;
+        int i = 0;
+
+        while (currentTime < 1)
+        {
+            i++;
+            currentTime += Time.deltaTime / timeToReachEnd;
+
+            if (currentTime >= 1)
+            {
+                currentTime = 1;
+            }
+
+            float xPos = (Mathf.Pow((1 - currentTime), 2) * firstPoint.position.x) + (2 * (1 - currentTime) * currentTime * secondPoint.position.x) + (Mathf.Pow(currentTime, 2) * thirdPoint.position.x);
+            float yPos = (Mathf.Pow((1 - currentTime), 2) * firstPoint.position.y) + (2 * (1 - currentTime) * currentTime * secondPoint.position.y) + (Mathf.Pow(currentTime, 2) * thirdPoint.position.y);
+            float zPos = (Mathf.Pow((1 - currentTime), 2) * firstPoint.position.z) + (2 * (1 - currentTime) * currentTime * secondPoint.position.z) + (Mathf.Pow(currentTime, 2) * thirdPoint.position.z);
+
+            float xRot = (Mathf.Pow((1 - currentTime), 2) * firstPoint.rotation.eulerAngles.x) + (2 * (1 - currentTime) * currentTime * secondPoint.rotation.eulerAngles.x) + (Mathf.Pow(currentTime, 2) * thirdPoint.rotation.eulerAngles.x);
+            float yRot = (Mathf.Pow((1 - currentTime), 2) * firstPoint.rotation.eulerAngles.y) + (2 * (1 - currentTime) * currentTime * secondPoint.rotation.eulerAngles.y) + (Mathf.Pow(currentTime, 2) * thirdPoint.rotation.eulerAngles.y);
+            float zRot = (Mathf.Pow((1 - currentTime), 2) * firstPoint.rotation.eulerAngles.z) + (2 * (1 - currentTime) * currentTime * secondPoint.rotation.eulerAngles.z) + (Mathf.Pow(currentTime, 2) * thirdPoint.rotation.eulerAngles.z);
+
+
+
+            objectToMove.transform.position = new Vector3(xPos, yPos, zPos);
+            objectToMove.eulerAngles = new Vector3(xRot, yRot, zRot);
+
+            if (i >= 250)
+            {
+                currentTime = 100000;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        done = true;
+
+    }
+
+    public IEnumerator bezierCurve(Transform objectToMove, Transform firstPoint, Transform secondPoint, Transform thirdPoint,Transform fourthPoint, float timeToReachEnd)
+    {
+        float currentTime = 0.0f;
+        int i = 0;
+
+        while (currentTime < 1)
+        {
+            i++;
+            currentTime += Time.deltaTime / timeToReachEnd;
+
+            if (currentTime >= 1)
+            {
+                currentTime = 1;
+            }
+
+            float xPos = (Mathf.Pow((1 - currentTime), 3) * firstPoint.position.x) + (3 * Mathf.Pow((1 - currentTime), 2) * currentTime * secondPoint.position.x) + (3 * (1 - currentTime) * Mathf.Pow(currentTime, 2) * thirdPoint.position.x) + (Mathf.Pow(currentTime, 3) * fourthPoint.position.x);
+            float yPos = (Mathf.Pow((1 - currentTime), 3) * firstPoint.position.y) + (3 * Mathf.Pow((1 - currentTime), 2) * currentTime * secondPoint.position.y) + (3 * (1 - currentTime) * Mathf.Pow(currentTime, 2) * thirdPoint.position.y) + (Mathf.Pow(currentTime, 3) * fourthPoint.position.y);
+            float zPos = (Mathf.Pow((1 - currentTime), 3) * firstPoint.position.z) + (3 * Mathf.Pow((1 - currentTime), 2) * currentTime * secondPoint.position.z) + (3 * (1 - currentTime) * Mathf.Pow(currentTime, 2) * thirdPoint.position.z) + (Mathf.Pow(currentTime, 3) * fourthPoint.position.z);
+
+            float xRot = (Mathf.Pow((1 - currentTime), 3) * firstPoint.rotation.eulerAngles.x) + (3 * Mathf.Pow((1 - currentTime), 2) * currentTime * secondPoint.rotation.eulerAngles.x) + (3 * (1 - currentTime) * Mathf.Pow(currentTime, 2) * thirdPoint.rotation.eulerAngles.x) + (Mathf.Pow(currentTime, 3) * fourthPoint.rotation.eulerAngles.x);
+            float yRot = (Mathf.Pow((1 - currentTime), 3) * firstPoint.rotation.eulerAngles.y) + (3 * Mathf.Pow((1 - currentTime), 2) * currentTime * secondPoint.rotation.eulerAngles.y) + (3 * (1 - currentTime) * Mathf.Pow(currentTime, 2) * thirdPoint.rotation.eulerAngles.y) + (Mathf.Pow(currentTime, 3) * fourthPoint.rotation.eulerAngles.y);
+            float zRot = (Mathf.Pow((1 - currentTime), 3) * firstPoint.rotation.eulerAngles.z) + (3 * Mathf.Pow((1 - currentTime), 2) * currentTime * secondPoint.rotation.eulerAngles.z) + (3 * (1 - currentTime) * Mathf.Pow(currentTime, 2) * thirdPoint.rotation.eulerAngles.z) + (Mathf.Pow(currentTime, 3) * fourthPoint.rotation.eulerAngles.z);
+
+
+
+            objectToMove.transform.position = new Vector3(xPos, yPos, zPos);
+            objectToMove.eulerAngles = new Vector3(xRot, yRot, zRot);
+
+            if (i >= 250)
+            {
+                currentTime = 100000;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        done = true;
+
     }
 
     //public IEnumerator bezierCurve(Transform objectToMove, Vector3 firstPoint, Vector3 secondPoint,Vector3 thirdPoint, float timeToReachEnd)

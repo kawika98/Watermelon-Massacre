@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_nonBoss : MonoBehaviour
+public abstract class AI_nonBoss : MonoBehaviour
 {
  //   public GameObject gun = null;//Must change this later to the base weaponsClass
     public GameObject enemy;
@@ -12,7 +12,9 @@ public class AI_nonBoss : MonoBehaviour
     //NOTE : Remeber to (if you do it) change the move values/attackvalues/attackspeed values depending on the current Relics
     public float enemySpeed = 4;
 
-    public void move(float range)
+   
+
+    public void move()
     {
         difficulty = GameManager.difficulty;      
 
@@ -34,13 +36,7 @@ public class AI_nonBoss : MonoBehaviour
         return Mathf.Abs(Vector3.Distance(enemy.transform.position, player.position));
     }
 
-    public void attack()
-    {
-        //Attacks the player in range by using the use() method on the weapon
-        //Firing speed is changed by diffucilty
-        //All in all this should be basic due to the cacluations being done in move already
-
-    }
+  
 
 
 

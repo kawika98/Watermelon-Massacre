@@ -63,12 +63,7 @@ public class EnemyAi : MonoBehaviour
 	void RunCombatNode()
 	{
 		Combat();
-		//if (FightsRanged)
-		//	RangedAttack();
-		//else if (isInRange)
-		//	MeleeAttack();
-		//else
-		//	SearchForTarget();
+
 	}
 
 	void RunFleeNode()
@@ -213,13 +208,9 @@ public class EnemyAi : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetButtonUp("Fire1"))
-		{
-			Camera.main.SendMessage("stat_shot", 1);
-			RangedAttack();
-
-		}
+		
 
 		RunBehaviors();
+		
 	}
 }
